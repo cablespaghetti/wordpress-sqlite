@@ -26,8 +26,6 @@ data:
      * @package WordPress
      */
     
-    define('WP_HOME', getenv('WP_HOME'));
-    define('WP_SITEURL', getenv('WP_SITEURL'));
     #define('WP_ALLOW_REPAIR', true);
     define('FS_METHOD', 'direct');
     
@@ -74,10 +72,10 @@ data:
         define('ABSPATH', dirname(__FILE__) . '/');
     
     // Reverse proxy https fix
-    //if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')
-    //    $_SERVER['HTTPS'] = 'on';
-    //if (isset($_SERVER['HTTP_X_FORWARDED_HOST']))
-    //    $_SERVER['HTTP_HOST'] = $_SERVER['HTTP_X_FORWARDED_HOST'];
+    if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')
+        $_SERVER['HTTPS'] = 'on';
+    if (isset($_SERVER['HTTP_X_FORWARDED_HOST']))
+        $_SERVER['HTTP_HOST'] = $_SERVER['HTTP_X_FORWARDED_HOST'];
     
     /** Sets up WordPress vars and included files. */
     require_once(ABSPATH . 'wp-settings.php');

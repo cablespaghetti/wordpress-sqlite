@@ -26,11 +26,6 @@ spec:
       containers:
       - name: wordpress
         image: wordpress:fpm-alpine
-        env:
-        - name: WP_HOME
-          value: "http://localhost:8080"
-        - name: WP_SITEURL
-          value: "http://localhost:8080"
         ports:
         - name: php-fpm
           containerPort: 9000
@@ -43,8 +38,6 @@ spec:
           subPath: wp-config.php
         - name: database
           mountPath: /var/www/db
-        - name: uploads
-          mountPath: /var/www/html/wp-content/uploads
         - name: html
           mountPath: /var/www/html
       - name: nginx
@@ -61,8 +54,6 @@ spec:
       volumes:
       - name: dbdriver
         emptyDir: {}
-      - name: html
-        emptyDir: {}
       - name: configmap
         configMap:
           name: wordpress
@@ -75,9 +66,9 @@ spec:
         requests:
           storage: 100Mi
   - metadata:
-      name: uploads
+      name: html
     spec:
       accessModes: ["ReadWriteOnce"]
       resources:
         requests:
-          storage: 100Mi
+          storage: 500Mi
